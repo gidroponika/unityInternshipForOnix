@@ -32,7 +32,6 @@ public class Player : MonoBehaviour {
 
     // method, that sets a new target when the old one is reached
     GameObject GetTarget(List<GameObject> targets) {
-        //if (gameObject.transform.position == targets[indexTarget].transform.position)
         if (gameObject.transform.position.Equals(targets[indexTarget].transform.position)) {
             indexTarget++;
             material.color = GetRandomColor();
