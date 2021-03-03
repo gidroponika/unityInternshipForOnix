@@ -4,10 +4,10 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     [SerializeField]
     List<GameObject> targets;
-
     [SerializeField]
     float speed;
-
+    [SerializeField]
+    Material material;
     int indexTarget;
     void Start()
     {
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
     void Update()
     {
         MovementToTarget();
+
     }
 
     //method of movement to the target
@@ -31,12 +32,22 @@ public class Player : MonoBehaviour {
 
     // method, that sets a new target when the old one is reached
     GameObject GetTarget(List<GameObject> targets) {
-        if (gameObject.transform.position == targets[indexTarget].transform.position) {
+        //if (gameObject.transform.position == targets[indexTarget].transform.position)
+        if (gameObject.transform.position.Equals(targets[indexTarget].transform.position)) {
             indexTarget++;
+            material.color = GetRandomColor();
             if (indexTarget == targets.Count) {
                 indexTarget = 0;
             }
         }
         return targets[indexTarget];
+    }
+    Color32 GetRandomColor() {
+        byte [] RGBA=new byte[3];
+        for(int i = 0; i < RGBA.Length; i++) {
+            RGBA[i] = (byte)Random.Range(0, 256);
+        }
+        Color32 color = new Color32(RGBA[0], RGBA[1], RGBA[2], 255);
+        return color;
     }
 }
